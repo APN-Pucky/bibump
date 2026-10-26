@@ -29,7 +29,7 @@ dependencies = [
   "requests",
   "bibtexparser>=1.4,<2",
   "inspirehep2bib",
-  "zenodo2bib",
+  "zenodo2bib>0.0.1",
 ]
 
 [project.scripts]
@@ -42,10 +42,6 @@ Source = "https://github.com/APN-Pucky/bibump"
 
 [tool.hatch.version]
 path = "src/bibump/__about__.py"
-
-[tool.uv.sources]
-inspirehep2bib = { path = "../inspirehep2bib" }
-zenodo2bib = { path = "../zenodo2bib" }
 
 [tool.hatch.envs.types]
 extra-dependencies = [
