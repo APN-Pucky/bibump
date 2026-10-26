@@ -1,0 +1,74 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "bibump"
+dynamic = ["version"]
+description = 'Check a .bib file for updates available from INSPIRE-HEP and Zenodo'
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Alexander Puck Neuwirth", email = "alexander@neuwirth-informatik.de" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "requests",
+  "bibtexparser>=1.4,<2",
+  "inspirehep2bib",
+  "zenodo2bib",
+]
+
+[project.scripts]
+bibump = "bibump:main"
+
+[project.urls]
+Documentation = "https://github.com/APN-Pucky/bibump#readme"
+Issues = "https://github.com/APN-Pucky/bibump/issues"
+Source = "https://github.com/APN-Pucky/bibump"
+
+[tool.hatch.version]
+path = "src/bibump/__about__.py"
+
+[tool.uv.sources]
+inspirehep2bib = { path = "../inspirehep2bib" }
+zenodo2bib = { path = "../zenodo2bib" }
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/bibump tests}"
+
+[tool.coverage.run]
+source_pkgs = ["bibump", "tests"]
+branch = true
+parallel = true
+omit = [
+  "src/bibump/__about__.py",
+]
+
+[tool.coverage.paths]
+bibump = ["src/bibump", "*/bibump/src/bibump"]
+tests = ["tests", "*/bibump/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
